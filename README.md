@@ -33,6 +33,15 @@
 
 ***
 
+### Starting on Project
+- Use XCode to open project `Pothole.xcodeproj`
+	- You will find this directly under your username directory, under Senior-Design
+		- Ex. `"hailelakew/Senior-Design"`
+		
+![](https://i.imgur.com/k1Omins.gif)
+
+***
+
 ### Turning in Changes
 - To Do Changes:
 	- Use the command `git checkout -b "New Branch Name"`
