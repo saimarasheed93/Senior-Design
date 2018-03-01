@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
+       
+        
         /*Don't want the data to be sent back constantly (but if you decide to change it from 1 to 0 - I just thought once every second would be good)*/
         //ACCELEROMETER INFORMATION
         motionManager.accelerometerUpdateInterval = 1
