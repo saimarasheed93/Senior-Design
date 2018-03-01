@@ -1,29 +1,43 @@
 //
 //  ViewController.swift
-//  PotholeApplication
+//  Pothole
 //
-//  Created by Anshula Varma on 2/14/18.
 //  Copyright © 2018 CityOfRichardson. All rights reserved.
-//
 
 import UIKit
 import CoreMotion
+import CoreLocation
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,CLLocationManagerDelegate {
     
     //Gather The Accelerometer Information
     var motionManager = CMMotionManager()
     
+    //Gather The GPS Information
+    let locationManager = CLLocationManager()
     
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
-       
+        
         
         /*Don't want the data to be sent back constantly (but if you decide to change it from 1 to 0 - I just thought once every second would be good)*/
         //ACCELEROMETER INFORMATION
@@ -97,6 +111,12 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // Gets gps data, and pritns to console
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        print("Testing")
+    }
 
 }
 
