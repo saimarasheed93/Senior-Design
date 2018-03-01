@@ -1,6 +1,8 @@
-# Senior-Design
+# ![](https://i.imgur.com/baZ5y7Z.gif)
+# Senior-Design 
 
-##Instructions on installation:
+
+## Instructions on installation:
 ### Make sure git is installed on your computer
 - Macs might already have this installed
 
