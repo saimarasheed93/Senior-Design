@@ -1,0 +1,178 @@
+!!! means high priority,
+!!	less priority.
+commented out parts where not sure how we'll do.
+
+sample:
+http://houstonpotholes.org/
+
+Question to city worker who deals with potholes:
+-when does city call for pothole repair? What's the current system?
+	-do you receive a manual phone call for it?
+	-does city intend to have a continual running server/web for pothole like that sample?
+		or check the database time to time manually and then call repairer (computer vs man work)?
+			-what is your overall preferred looking end system?
+			
+
+-------------------------------------------------------------------------------------------------
+
+Previous notes:
+Determine the pothole by Z value
+-	Get Z value off range of permitted value in certain time ranges
+o	Determine from average Z value vehicle is traveling
+•	Determine if found pothole is in fact, a pothole
+-	Compare with the City map where speed bumps exist
+
+
+			
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+//THREAD-0: auto user_id validation
+	//THREAD-1: record processing (continually running thread)
+	//THREAD-2: send data to database (run every y time)
+//DATABASE:	process data from user
+
+
+
+//!!!calculating user data
+//		-store vehicle patterns and acceptable threshold in user's phone or in database to signal pothole?
+//			-if only pothole signal related data sent from user's phone, less work on database.
+//				-this may pose inaccuratecy and data map corruption
+
+!!CALCULATE_POLL_RATE
+
+!!file formating
+
+-------------------------------------------------------------------------------------------------
+--------------------------------
+--------	THREAD-0	--------
+--------------------------------
+USER-ID-VALIDATION{
+	if(RETURNING-USER()){
+		run THREAD-1;
+	}
+	else assign_user_id();
+}
+
+RETURNING-USER(){
+	get_user_phone_id();
+	if(get_user_phone_id.isInDatabase)
+		return true
+	return false;
+}
+
+-------------------------------------------------------------------------------------------------
+--------------------------------
+--------	THREAD-1	--------
+--------------------------------
+
+GPS-LOCATION-TEST-VERSION
+POLL-RECORD-DATA();
+
+GPS-LOCATION(){
+	gpsStat = gps.getStatus();
+	if (WITHIN-JURISDICTION(gpsStat))
+		POLL-RECORD-DATA();
+	else GO-SLEEP();
+}
+
+POLL-RECORD-DATA(){
+	while(current_timer < interrupt_timer){		//!!do we need this?
+	
+		int x = ?;	//!!!initial poll & record rate
+	
+		for(every_x_time){	//record status every x time to file			
+			//get information for calculation
+			accelStat = accelerometer.getStatus();
+			gpsStat = gps.getStatus();
+			gyroStat = gyroscope.getStatus();
+			
+			if(!WITHIN-JURISDICTION(gpsStat)){
+				GO-SLEEP();
+				break;
+			}
+				
+			
+			//!!!get car speed for the data polling & recording rate, x.
+			x = CALCULATE_POLL_RATE(accelStat, gpsStat, gyroStat);
+			
+			WRITE-TO-FILE(accelStat, gpsStat, gyroStat);
+			
+			//!!!calculate here or from database? each car has its own data patterns and threshold
+			//CALCULATE-ACCEPTABLE-THRESHOLD
+		}
+		
+	}
+}
+
+WITHIN-JURISDICTION(gpsStat){
+	if(within jurisdiction)
+		return true;
+	return false;
+}
+
+GO-SLEEP(){
+	sleep(time);
+	GPS-LOCATION();
+}
+
+CALCULATE_POLL_RATE(accelStat, gpsStat, gyroStat){
+	//!!do calculation
+
+	return x;
+}
+
+WRITE-TO-FILE(accelStat, gpsStat, gyroStat){
+	//!!file type, format, 1 or more file for date/file size?
+}
+
+-------------------------------------------------------------------------------------------------
+--------------------------------
+--------	THREAD-2	--------
+--------------------------------
+
+//!!!battery(calculate on phone before file send) vs wireless data
+SEND-FILE-TO-DATABASE(){	//!!is there such thing as efficient buffer size? file validation?
+	//send every y time
+	//send only the new ones after the last login. send only when file reaches certain bulk size
+}
+
+-------------------------------------------------------------------------------------------------
+--------------------------------
+--------	DATABASE	--------
+--------------------------------
+DATABASE-REPORT-DATA{
+	//!!!calculate user data here or from database? each car has its own data patterns and threshold
+	
+	//if data calculated in user phone, just add to report.
+	//else calculate then report. this may provide higher accuracy and confirmation
+	REPORT-POTHOLE(user_id, location);
+}
+
+REPORT-POTHOLE(user_id, location){
+	//decide file formating
+
+	WRITE-TO-FILE(fileNameDirectory, user_id, report_count, location);
+}
+
+WRITE-TO-FILE(fileNameDirectory, user_id, report_count, location){
+	//write to file
+}
+
+-------------------------------------------------------------------------------------------------
+DATABSE-POTHOLE-MAP{
+	//read report data file
+	
+	for(each reported location in database){
+		int check_pothole = ?;	//!!determined by city report count to take serious. allow this value changed from city from UI
+		
+		if (report_count >= check_pothole)
+			boolean pothole_alert.add(report_count, location);
+	}
+}
+
+DATABASE-MAP-DATA{
+	//map the reports on visual map and graph
+}
+
+-------------------------------------------------------------------------------------------------
+
