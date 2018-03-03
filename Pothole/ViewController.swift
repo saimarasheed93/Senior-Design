@@ -7,16 +7,25 @@
 import UIKit
 import CoreMotion
 import CoreLocation
+import UIKit
 
 class ViewController: UIViewController,CLLocationManagerDelegate {
+    
     
     //Gather The Accelerometer Information
     var motionManager = CMMotionManager()
     
     //Gather The GPS Information
     let locationManager = CLLocationManager()
-    
 
+    var locData = [
+        "id" : "",
+        "lat": 0,
+        "long": 0,
+        "z_axis": 0,
+        "event_type" : "test",
+        "date_time" : "1/1/2001"
+        ] as [String : Any]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +42,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -114,9 +125,25 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     // Gets gps data, and pritns to console
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
-        print("Testing")
+      
+        locData["lat"] = locValue.latitude
+        locData["long"] = locValue.longitude
+    } 
+    
+    func updateFile(){
+        if JSONSerialization.isValidJSONObject(locData) { // True
+            do {
+                let test = try JSONSerialization.data(withJSONObject: locData, options: .prettyPrinted)
+                
+                let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                    .appendingPathComponent("locData.json") // Your json file name
+                try? test.write(to: fileUrl)
+                
+            } catch {
+                // Handle Error
+            }
+        }
     }
-
+    
 }
 
