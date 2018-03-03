@@ -55,5 +55,4 @@
 	- Use `git commit -m "Reason for Change"` 
 	- Finally `git push` to turn in changes
 	
-![](http://i.imgur.com/60bts.gif)
 
