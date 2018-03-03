@@ -1,6 +1,4 @@
-# ![](https://i.imgur.com/baZ5y7Z.gif)
 # Senior-Design 
-
 
 ## Instructions on installation:
 ### Make sure git is installed on your computer
@@ -55,4 +53,4 @@
 	- Use `git commit -m "Reason for Change"` 
 	- Finally `git push` to turn in changes
 	
-
+![](https://i.imgur.com/baZ5y7Z.gif)
