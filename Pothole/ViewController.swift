@@ -17,6 +17,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     //Gather The GPS Information
     let locationManager = CLLocationManager()
 
+    // Our JSON object stored in memory as a Dictionary
+    //  Edit to update JSON file
     var locData = [
         "id" : "",
         "lat": 0,
@@ -36,12 +38,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
         
+        // Sets up gps services
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-        
         
     }
     
@@ -129,17 +131,21 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         locData["long"] = locValue.longitude
     } 
     
+    // Converts dictionary into an actual JSON object, and adds to a file made in memory
+    //  Use this function to do it at will
     func updateFile(){
-        if JSONSerialization.isValidJSONObject(locData) { // True
+        let fileName = "locData.json"
+        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        
+        if JSONSerialization.isValidJSONObject(locData) { // If JSON alternative can be converted
             do {
-                let test = try JSONSerialization.data(withJSONObject: locData, options: .prettyPrinted)
+                let data = try JSONSerialization.data(withJSONObject: locData, options: .prettyPrinted)
                 
-                let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                    .appendingPathComponent("locData.json") // Your json file name
-                try? test.write(to: fileUrl)
+                try data.write(to: path!)
                 
             } catch {
-                // Handle Error
+                print("Failed to create file")
+                print("\(error)")
             }
         }
     }
@@ -158,6 +164,5 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
 //            }
 //        }
 //    }
-    
-}
 
+}

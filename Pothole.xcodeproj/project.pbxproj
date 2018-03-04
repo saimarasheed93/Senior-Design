@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		62223F2A204B3DEE0013AE8C /* locData.json in Resources */ = {isa = PBXBuildFile; fileRef = 62223F29204B3DEE0013AE8C /* locData.json */; };
 		6293C39F2047BDEA004B5790 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6293C39E2047BDEA004B5790 /* AppDelegate.swift */; };
 		6293C3A12047BDEA004B5790 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6293C3A02047BDEA004B5790 /* ViewController.swift */; };
 		6293C3A42047BDEA004B5790 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6293C3A22047BDEA004B5790 /* Main.storyboard */; };
@@ -35,7 +34,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		62223F29204B3DEE0013AE8C /* locData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = locData.json; sourceTree = "<group>"; };
 		6293C39B2047BDEA004B5790 /* Pothole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pothole.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6293C39E2047BDEA004B5790 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6293C3A02047BDEA004B5790 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 				6293C3A52047BDEA004B5790 /* Assets.xcassets */,
 				6293C3A72047BDEA004B5790 /* LaunchScreen.storyboard */,
 				6293C3AA2047BDEA004B5790 /* Info.plist */,
-				62223F29204B3DEE0013AE8C /* locData.json */,
 			);
 			path = Pothole;
 			sourceTree = "<group>";
@@ -235,7 +232,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62223F2A204B3DEE0013AE8C /* locData.json in Resources */,
 				6293C3A92047BDEA004B5790 /* LaunchScreen.storyboard in Resources */,
 				6293C3A62047BDEA004B5790 /* Assets.xcassets in Resources */,
 				6293C3A42047BDEA004B5790 /* Main.storyboard in Resources */,
