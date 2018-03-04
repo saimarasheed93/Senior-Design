@@ -144,5 +144,20 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         }
     }
     
+//    func updateFile(){
+//        if JSONSerialization.isValidJSONObject(locData) { // True
+//            do {
+//                let test = try JSONSerialization.data(withJSONObject: locData, options: .prettyPrinted)
+//
+//                let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+//                    .appendingPathComponent("locData.json") // Your json file name
+//                try? test.write(to: fileUrl)
+//
+//            } catch {
+//                // Handle Error
+//            }
+//        }
+//    }
+    
 }
 
